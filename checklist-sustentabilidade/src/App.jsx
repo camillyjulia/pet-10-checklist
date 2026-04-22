@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import IntroPage from "./pages/IntroPage";
 import SetupPage from "./pages/SetupPage";
@@ -12,6 +12,21 @@ function App() {
   const [selectedDimensions, setSelectedDimensions] = useState([]);
 
   const [answers, setAnswers] = useState({});
+
+  useEffect(() => {
+    const saved = localStorage.getItem("answers");
+    if (saved) {
+      setAnswers(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("answers", JSON.stringify(answers));
+  }, [answers]);
+
+  useEffect(() => {
+    console.log("SALVANDO:", answers);
+  }, [answers]);
 
   // iniciar avaliação
   const handleStart = (selectedProfile, dimensions) => {
@@ -38,13 +53,20 @@ function App() {
     setProfile(null);
     setSelectedDimensions([]);
     setAnswers({});
+    localStorage.removeItem("answers"); // adiciona isso
     setCurrentPage("intro");
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       {currentPage === "intro" && (
-        <IntroPage onStart={() => setCurrentPage("setup")} />
+        <IntroPage
+          onStart={() => {
+            setAnswers({});
+            localStorage.removeItem("answers");
+            setCurrentPage("setup");
+          }}
+        />
       )}
 
       {currentPage === "setup" && (

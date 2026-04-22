@@ -2,6 +2,7 @@ import { useState } from "react";
 import questions from "../data/questions";
 import dimensions from "../data/dimensions";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function ChecklistPage({
   profile,
@@ -39,35 +40,60 @@ function ChecklistPage({
     }
   };
 
+  const handleBack = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const options = [
+    { value: "1", label: "Muito baixo" },
+    { value: "2", label: "Baixo" },
+    { value: "3", label: "Médio" },
+    { value: "4", label: "Alto" },
+    { value: "5", label: "Muito alto" },
+  ];
+
+  const progress =
+     ((currentIndex + 1) / selectedDimensions.length) * 100;
+
     return (
     <div className="min-h-screen bg-gray-50">
         
         <Header />
 
         <div className="px-6 py-10 flex justify-center">
-        <div className="max-w-3xl w-full"></div>
-    
+
     <div className="min-h-screen bg-gray-50 px-6 py-10 flex justify-center">
     
       <div className="max-w-3xl w-full">
 
         {/* HEADER */}
-        <div className="mb-6 border-b pb-4">
-            <h1 className="text-2xl font-bold text-[#004E78]">
-                {currentDimension?.name}
-            </h1>
+        <div className="mb-6">
+  
+          <h1 className="text-2xl font-bold text-[#004E78] mb-2">
+            {currentDimension?.name}
+          </h1>
 
-            <p className="text-sm text-gray-500">
-                Etapa {currentIndex + 1} de {selectedDimensions.length}
-            </p>
+          <p className="text-sm text-gray-500 mb-3">
+            Etapa {currentIndex + 1} de {selectedDimensions.length}
+          </p>
+
+          {/* BARRA */}
+          <div className="w-full h-2 bg-gray-200 rounded-full">
+            <div
+              className="h-2 bg-[#00A084] rounded-full transition-all"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
 
         {/* PERGUNTAS */}
-        <div cclassName="bg-white p-5 rounded-2xl border border-gray-200">
+        <div className="bg-white p-5 rounded-2xl border border-gray-200">
           {filteredQuestions.map((q) => (
             <div
               key={q.id}
-              className="bg-white p-4 rounded-xl border"
+              className="bg-white p-5 rounded-2xl border border-gray-200"
             >
               <p className="text-xs text-gray-500 mb-1">
                 {q.subtheme}
@@ -77,26 +103,20 @@ function ChecklistPage({
                 {q.text}
               </p>
 
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                ].map((value) => (
+              <div className="flex flex-wrap gap-2 justify-start">
+                {options.map((opt) => (
                   <button
-                    key={value}
-                    onClick={() => onAnswer(q.id, value)}
-                    className={`px-3 py-1 rounded-lg border text-sm
+                    key={opt.value}
+                    onClick={() => onAnswer(q.id, opt.value)}
+                    className={`px-3 py-2 rounded-lg border text-sm transition
                       ${
-                        answers[q.id] === value
-                          ? "bg-[#1C75BC] text-white border-[#1C75BC]"
-                          : "bg-white text-gray-700 border-gray-300"
+                        answers[q.id] === opt.value
+                          ? "bg-[#004E78] text-white border-[#004E78]"
+                          : "bg-white text-gray-700 border-gray-300 hover:border-[#1C75BC]"
                       }
                     `}
                   >
-                    {value}
+                    {opt.label}
                   </button>
                 ))}
               </div>
@@ -105,22 +125,43 @@ function ChecklistPage({
         </div>
 
         {/* BOTÃO */}
-        <button
-          onClick={handleNext}
-          disabled={!allAnswered}
-          className={`w-full mt-6 py-3 rounded-xl text-white transition
-            ${
-              allAnswered
-                ? "bg-[#1C75BC] hover:opacity-90"
-                : "bg-gray-300 cursor-not-allowed"
-            }
-          `}
-        >
-          {isLast ? "Finalizar avaliação" : "Próxima dimensão"}
-        </button>
+        <div className="flex gap-3 mt-6">
+  
+       {/* BOTÃO VOLTAR */}
+          <button
+            onClick={handleBack}
+            disabled={currentIndex === 0}
+            className={`flex-1 py-3 rounded-xl border transition
+              ${
+                currentIndex === 0
+                  ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                  : "border-gray-300 text-gray-700 hover:border-[#1C75BC]"
+              }
+            `}
+          >
+            Voltar
+          </button>
+
+          {/* BOTÃO PRÓXIMO / FINALIZAR */}
+          <button
+            onClick={handleNext}
+            disabled={!allAnswered}
+            className={`flex-1 py-3 rounded-xl text-white font-medium transition
+              ${
+                allAnswered
+                  ? "bg-[#004E78] hover:opacity-90"
+                  : "bg-gray-300 cursor-not-allowed"
+              }
+            `}
+          >
+            {isLast ? "Finalizar avaliação" : "Próxima dimensão"}
+          </button>
+
+        </div>
                 </div>
             </div>
         </div>
+      <Footer />
     </div>
   );
 }

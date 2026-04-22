@@ -1,6 +1,7 @@
 import { useState } from "react";
 import dimensions from "../data/dimensions";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function SetupPage({ onStart }) {
   const [selectedProfile, setSelectedProfile] = useState(null);
@@ -71,8 +72,8 @@ function SetupPage({ onStart }) {
 
         {/* DIMENSÕES */}
         <div className="mb-8">
-          <h2 className="font-semibold mb-3 text-gray-700">
-            Selecione as dimensões para análise
+          <h2 className="font-semibold mb-2 text-[#004E78]">
+            Dimensões da avaliação
           </h2>
           <p className="text-sm text-gray-500 mb-4">
             Recomendado selecionar todas
@@ -86,20 +87,37 @@ function SetupPage({ onStart }) {
                 <div
                   key={dim.id}
                   onClick={() => toggleDimension(dim.id)}
-                  className={`cursor-pointer p-5 rounded-2xl border transition
+                  className={`cursor-pointer p-5 rounded-2xl border transition-all duration-200
                     ${
-                        selected
-                        ? "bg-[#E6F4F1] border-[#00A084]"
-                        : "bg-white border-gray-200 hover:border-[#1C75BC]"
+                      selected
+                        ? "bg-[#E6F4F1] border-[#00A084] shadow-sm"
+                        : "bg-white border-gray-200 hover:border-[#1C75BC] hover:shadow-sm"
                     }
-                    `}
+                  `}
                 >
-                  <h3 className="font-semibold text-gray-800 mb-2">
-                    {dim.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {dim.description}
-                  </p>
+                  <div className="flex items-start justify-between">
+                    
+                    <div>
+                      <h3 className="font-semibold text-[#004E78] mb-1">
+                        {dim.name}
+                      </h3>
+
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {dim.description}
+                      </p>
+                    </div>
+
+                    {/* indicador visual */}
+                    <div
+                      className={`w-4 h-4 rounded-full mt-1
+                        ${
+                          selected
+                            ? "bg-[#00A084]"
+                            : "border border-gray-300"
+                        }
+                      `}
+                    />
+                  </div>
                 </div>
               );
             })}
@@ -123,6 +141,8 @@ function SetupPage({ onStart }) {
 
           </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

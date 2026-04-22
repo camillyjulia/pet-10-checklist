@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function IntroPage({ onStart }) {
   return (
@@ -20,6 +21,8 @@ function IntroPage({ onStart }) {
         </button>
 
       </div>
+
+      <Footer />
     </div>
   );
 }
