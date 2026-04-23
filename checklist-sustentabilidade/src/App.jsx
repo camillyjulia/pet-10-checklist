@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import IntroPage from './pages/IntroPage'
 import SetupPage from './pages/SetupPage'
 import ChecklistPage from './pages/ChecklistPage'
+import ResultsPage from './pages/ResultsPage'
 import { dimensions } from './data/dimensions'
 import { questions } from './data/questions'
 import {
@@ -131,7 +132,7 @@ function App() {
       currentDimensionIndex === selectedDimensionObjects.length - 1
 
     if (isLastDimension) {
-      alert('Próxima etapa: tela de resultados')
+      setCurrentPage('results')
 
       setTimeout(() => {
         scrollToTop()
@@ -141,6 +142,19 @@ function App() {
     }
 
     setCurrentDimensionIndex((prevIndex) => prevIndex + 1)
+
+    setTimeout(() => {
+      scrollToTop()
+    }, 0)
+  }
+
+  function handleRestart() {
+    setCurrentPage('intro')
+    setSelectedProfile('')
+    setSelectedDimensions([])
+    setAnswers({})
+    setCurrentDimensionIndex(0)
+    setValidationErrorQuestionIds([])
 
     setTimeout(() => {
       scrollToTop()
@@ -164,19 +178,31 @@ function App() {
     )
   }
 
+  if (currentPage === 'checklist') {
+    return (
+      <ChecklistPage
+        currentDimension={currentDimension}
+        currentDimensionIndex={currentDimensionIndex}
+        totalDimensions={selectedDimensionObjects.length}
+        questions={currentDimensionQuestions}
+        answers={answers}
+        onAnswer={handleAnswerQuestion}
+        onNext={handleNextDimension}
+        progressPercentage={progressPercentage}
+        answeredQuestionsCount={answeredQuestionsCount}
+        totalQuestions={totalQuestions}
+        validationErrorQuestionIds={validationErrorQuestionIds}
+      />
+    )
+  }
+
   return (
-    <ChecklistPage
-      currentDimension={currentDimension}
-      currentDimensionIndex={currentDimensionIndex}
-      totalDimensions={selectedDimensionObjects.length}
-      questions={currentDimensionQuestions}
+    <ResultsPage
+      dimensions={selectedDimensionObjects}
+      groupedQuestions={groupedQuestions}
       answers={answers}
-      onAnswer={handleAnswerQuestion}
-      onNext={handleNextDimension}
       progressPercentage={progressPercentage}
-      answeredQuestionsCount={answeredQuestionsCount}
-      totalQuestions={totalQuestions}
-      validationErrorQuestionIds={validationErrorQuestionIds}
+      onRestart={handleRestart}
     />
   )
 }
