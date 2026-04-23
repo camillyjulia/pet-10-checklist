@@ -1,13 +1,7 @@
-import { useState } from 'react'
+import IntroPage from './pages/IntroPage'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-    
-    </>
-  )
+  return <IntroPage />
 }
 
 export default App
