@@ -22,7 +22,7 @@ function Header() {
           </div>
 
           <div className="flex h-12 w-24 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500">
-            Logo 2
+            Logo 3
           </div>
         </div>
       </div>
