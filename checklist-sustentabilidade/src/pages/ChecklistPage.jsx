@@ -1,6 +1,7 @@
-import Header from '../components/Header'
-import ProgressBar from '../components/ProgressBar'
-import QuestionCard from '../components/QuestionCard'
+import { IconArrowLeft } from "@tabler/icons-react";
+import Header from "../components/Header";
+import ProgressBar from "../components/ProgressBar";
+import QuestionCard from "../components/QuestionCard";
 
 function ChecklistPage({
   currentDimension,
@@ -10,19 +11,21 @@ function ChecklistPage({
   answers,
   onAnswer,
   onNext,
+  onBack,
   progressPercentage,
   answeredQuestionsCount,
   totalQuestions,
   validationErrorQuestionIds,
 }) {
-  const isLastDimension = currentDimensionIndex === totalDimensions - 1
+  const isLastDimension = currentDimensionIndex === totalDimensions - 1;
+  const isFirstDimension = currentDimensionIndex === 0;
 
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
 
       <main className="mx-auto w-full max-w-7xl px-6 py-10">
-        <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="mb-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -44,7 +47,7 @@ function ChecklistPage({
           </div>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-6">
           <ProgressBar
             value={progressPercentage}
             answeredQuestionsCount={answeredQuestionsCount}
@@ -64,18 +67,29 @@ function ChecklistPage({
           ))}
         </div>
 
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+          >
+            <IconArrowLeft size={16} strokeWidth={2} />
+            {isFirstDimension
+              ? "Voltar para configuração"
+              : "Dimensão anterior"}
+          </button>
+
           <button
             type="button"
             onClick={onNext}
-            className="rounded-2xl bg-[#1C75BC] px-6 py-3 text-base font-semibold text-white transition hover:opacity-90"
+            className="rounded-2xl bg-[#1C75BC] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#1560a0]"
           >
-            {isLastDimension ? 'Finalizar avaliação' : 'Próxima dimensão'}
+            {isLastDimension ? "Finalizar avaliação" : "Próxima dimensão →"}
           </button>
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-export default ChecklistPage
+export default ChecklistPage;

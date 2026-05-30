@@ -1,3 +1,4 @@
+import { IconArrowLeft } from "@tabler/icons-react";
 import Header from "../components/Header";
 import ProfileSelector from "../components/ProfileSelector";
 import DimensionGrid from "../components/DimensionGrid";
@@ -10,6 +11,7 @@ function SetupPage({
   onSelectProfile,
   onToggleDimension,
   onStart,
+  onBack,
 }) {
   const isStartDisabled = !selectedProfile || selectedDimensions.length === 0;
 
@@ -33,6 +35,15 @@ function SetupPage({
       <Header />
 
       <main className="mx-auto w-full max-w-7xl px-6 py-10">
+        <button
+          type="button"
+          onClick={onBack}
+          className="mb-6 flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-[#004E78]"
+        >
+          <IconArrowLeft size={16} strokeWidth={2} />
+          Voltar para o início
+        </button>
+
         <div className="space-y-4">
           <ProfileSelector
             selectedProfile={selectedProfile}
@@ -47,7 +58,6 @@ function SetupPage({
           />
         </div>
 
-        {/* Summary bar */}
         <div className="mt-4 flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-6">
             <div>
