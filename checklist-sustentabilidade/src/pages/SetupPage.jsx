@@ -1,6 +1,7 @@
-import Header from '../components/Header'
-import ProfileSelector from '../components/ProfileSelector'
-import DimensionGrid from '../components/DimensionGrid'
+import Header from "../components/Header";
+import ProfileSelector from "../components/ProfileSelector";
+import DimensionGrid from "../components/DimensionGrid";
+import { questions } from "../data/questions";
 
 function SetupPage({
   dimensions,
@@ -10,15 +11,29 @@ function SetupPage({
   onToggleDimension,
   onStart,
 }) {
-  const isStartDisabled =
-    !selectedProfile || selectedDimensions.length === 0
+  const isStartDisabled = !selectedProfile || selectedDimensions.length === 0;
+
+  const totalQuestions = selectedProfile
+    ? questions.filter(
+        (q) =>
+          q.profile === selectedProfile &&
+          selectedDimensions.includes(q.dimension),
+      ).length
+    : null;
+
+  const profileLabel =
+    selectedProfile === "developer"
+      ? "Desenvolvedor"
+      : selectedProfile === "user"
+        ? "Avaliador"
+        : "Nenhum selecionado";
 
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
 
       <main className="mx-auto w-full max-w-7xl px-6 py-10">
-        <div className="space-y-6">
+        <div className="space-y-4">
           <ProfileSelector
             selectedProfile={selectedProfile}
             onSelectProfile={onSelectProfile}
@@ -28,46 +43,60 @@ function SetupPage({
             dimensions={dimensions}
             selectedDimensions={selectedDimensions}
             onToggleDimension={onToggleDimension}
+            selectedProfile={selectedProfile}
           />
         </div>
 
-        <div className="mt-8 flex items-center justify-between gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div>
-            <p className="text-sm font-medium text-slate-500">
-              Perfil selecionado:{' '}
-              <span className="font-semibold text-slate-800">
-                {selectedProfile === 'developer'
-                  ? 'Desenvolvedor'
-                  : selectedProfile === 'user'
-                  ? 'Usuário'
-                  : 'Nenhum'}
-              </span>
-            </p>
+        {/* Summary bar */}
+        <div className="mt-4 flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-6">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                Perfil
+              </p>
+              <p className="mt-1 text-sm font-semibold text-slate-800">
+                {profileLabel}
+              </p>
+            </div>
 
-            <p className="mt-2 text-sm font-medium text-slate-500">
-              Dimensões selecionadas:{' '}
-              <span className="font-semibold text-slate-800">
-                {selectedDimensions.length}
-              </span>
-            </p>
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                Dimensões
+              </p>
+              <p className="mt-1 text-sm font-semibold text-slate-800">
+                {selectedDimensions.length} selecionada
+                {selectedDimensions.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+
+            {totalQuestions !== null && (
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                  Total de perguntas
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-800">
+                  {totalQuestions} perguntas
+                </p>
+              </div>
+            )}
           </div>
 
           <button
             type="button"
             onClick={onStart}
             disabled={isStartDisabled}
-            className={`rounded-2xl px-6 py-3 text-base font-semibold transition ${
+            className={`rounded-2xl px-6 py-3 text-sm font-semibold transition ${
               isStartDisabled
-                ? 'cursor-not-allowed bg-slate-200 text-slate-500'
-                : 'bg-[#1C75BC] text-white hover:opacity-90'
+                ? "cursor-not-allowed bg-slate-100 text-slate-400"
+                : "bg-[#1C75BC] text-white hover:bg-[#1560a0]"
             }`}
           >
-            Começar checklist
+            Começar checklist →
           </button>
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-export default SetupPage
+export default SetupPage;
