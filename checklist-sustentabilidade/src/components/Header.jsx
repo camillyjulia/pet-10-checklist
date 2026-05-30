@@ -1,5 +1,5 @@
-import prefeituraLogo from '../assets/logos/prefeitura.png'
-import ufcspaLogo from '../assets/logos/logo-ufcspa.png'
+import prefeituraLogo from "../assets/logos/prefeitura.png";
+import ufcspaLogo from "../assets/logos/logo-ufcspa.png";
 
 function Header() {
   return (
@@ -11,11 +11,12 @@ function Header() {
           </p>
 
           <h1 className="mt-1 text-2xl font-bold text-[#004E78]">
-            Checklist de Sustentabilidade para Projetos de Inovação
+            Soluções de Tecnologia e Inovação
           </h1>
 
           <p className="mt-1 text-sm text-slate-600">
-            Ferramenta para avaliação de sustentabilidade em software
+            Ferramenta para avaliação de sustentabilidade em soluções de
+            tecnologia e inovação
           </p>
         </div>
 
@@ -38,7 +39,7 @@ function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

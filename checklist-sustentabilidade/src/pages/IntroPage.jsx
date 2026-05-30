@@ -1,5 +1,5 @@
-import Header from '../components/Header'
-import IntroSection from '../components/IntroSection'
+import Header from "../components/Header";
+import IntroSection from "../components/IntroSection";
 
 function IntroPage({ onStart }) {
   return (
@@ -7,7 +7,7 @@ function IntroPage({ onStart }) {
       <Header />
       <IntroSection onStart={onStart} />
     </div>
-  )
+  );
 }
 
-export default IntroPage
+export default IntroPage;
