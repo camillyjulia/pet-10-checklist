@@ -5,7 +5,7 @@ const profiles = [
     id: "developer",
     label: "Desenvolvedor",
     description:
-      "Avalie o software a partir da perspectiva de quem projeta, implementa ou mantém a solução.",
+      "Avalie as iniciativas de inovação a partir da perspectiva de quem projeta, implementa ou mantém a solução.",
     icon: IconCode,
     tags: ["Arquitetura", "Qualidade", "Manutenção", "Segurança"],
     iconClass: "text-[#1C75BC]",
@@ -15,7 +15,7 @@ const profiles = [
     id: "user",
     label: "Avaliador",
     description:
-      "Avalie o software a partir da perspectiva de quem utiliza a solução no seu contexto de uso.",
+      "Avalie as iniciativas de inovação a partir da perspectiva de quem utiliza a solução no seu contexto de uso.",
     icon: IconStethoscope,
     tags: ["Usabilidade", "Experiência", "Acesso", "Impacto"],
     iconClass: "text-[#00A084]",
