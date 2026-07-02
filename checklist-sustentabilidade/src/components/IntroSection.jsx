@@ -67,14 +67,14 @@ function IntroSection({ onStart }) {
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
             Toda decisão em saúde gera impacto.{" "}
             <span className="font-semibold text-slate-800">
-              Saúde não tem preço — mas tem um custo para o sistema e para o
+              Saúde não tem preço, mas tem um custo para o sistema e para o
               nosso futuro.
             </span>
           </p>
 
           <p className="mt-2 max-w-3xl text-base leading-8 text-slate-600">
             Mas você já parou para refletir sobre quais impactos suas ações de
-            desenvolvimento estão produzindo — hoje e no futuro?
+            desenvolvimento estão produzindo hoje e no futuro?
           </p>
 
           <p className="mt-2 max-w-3xl text-base leading-8 text-slate-600">
